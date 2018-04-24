@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>class和style样式</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <style>
+        .x {
+            background: blue
+        }
+        
+        .y {
+            font-size: 50px
+        }
+        
+        .z {
+            color: pink
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- :class绑定的样式和class绑定的不冲突 第一种方式是对象  第二种方式是数组-->
+        <div :class="{z:flag,y:flag}">我很帅</div>
+        <div :class="[class1,{z:flag}]">我很帅</div>
+        <div v-for="(a,index) in 10" :class="{x:index%2}">{{a}}</div>
+    </div>
+    <hr>
+    <div id="app2">
+        <!-- 动态绑定样式 -->
+        <div :style="{backgroundColor:'red',color:'pink'}">我很帅</div>
+        <div :style="[sty1,sty2]">我非常帅</div>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true,
+                class1: 'x',
+                class2: 'y'
+            },
+            computed: {
+
+            },
+            computed: {
+
+            }
+        });
+        let vm2 = new Vue({
+            el: '#app2',
+            data: {
+                sty1: {
+                    backgroundColor: 'red'
+                },
+                sty2: {
+                    color: 'pink'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

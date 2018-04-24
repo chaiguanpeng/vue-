@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>propsData Option全局扩展的数据传递</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>propsData Option全局扩展的数据传递</h1>
+<hr>
+<header></header>
+<script>
+   var header_a = Vue.extend({
+       template:`<p>{{message}}-{{a}}</p>`,
+       data:function () {
+           return {
+               message:"hello, I am header!"
+           }
+       },
+       props:["a"]
+   });
+   new header_a({propsData:{a:11}}).$mount("header");
+</script>
+</body>
+</html>

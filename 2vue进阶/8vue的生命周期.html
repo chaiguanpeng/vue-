@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue中生命周期</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+</div>
+<script>
+    /*生命周期:beforeCreate、created
+    *        beforeMount    mounted
+    *        beforeUpdate   updated
+    *        beforeDestroy  destroyed
+     */
+    let vm = new Vue({  //跟实例,初始化会调用很多方法(钩子函数)
+        beforeCreate(){}, //1、此方法用不到,
+        data:{
+            a:'red',
+            b:''
+        },
+        created(){      //2、获取ajax,初始化操作
+            // debugger;
+        },
+        el:'#app',
+        template:'<div>{{a}}</div>',    //4.如果有template属性会用模板替换掉外部的html，只要有此属性app中内容就没有任何属性,只能有一个根元素，不能是文本节点
+        beforeMount(){  //没有什么实际意义
+        },
+        mounted(){      //真实dom渲染完了,可以操作dom
+
+        },
+        beforeUpdate(){     //一般用watch替换掉
+        },
+        updated(){
+        },
+        beforeDestroy(){    //清除定时器 或者清除事件绑定
+            alert('销毁前')
+        },
+        destroy(){
+            alert('销毁后')
+        },
+        methods:{
+            da(){
+                alert('1');
+            }
+        }
+    })
+    vm.$destroy();
+</script>
+</body>
+</html>

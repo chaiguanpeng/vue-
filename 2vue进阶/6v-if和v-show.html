@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>v-if和v-show</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="flag=!flag">点击</button>
+        <!-- template标签 是vue提供给我们的没有任何的实际意义,用来包裹元素用的,v-show不支持template -->
+        <!-- 默认情况下在切换dom时相同的结构会被复用，如果不需要复用 需要加key -->
+        <template v-if="flag">
+            <label for="reg">注册</label>
+            <input type="text" id="reg" key='1'>
+        </template>
+        <template v-else>
+            <label for="login">登录</label>
+            <input type="text" id='login' key="2">
+        </template>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true
+            }
+        })
+    </script>
+</body>
+
+</html>

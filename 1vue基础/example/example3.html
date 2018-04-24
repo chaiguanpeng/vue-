@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>example methods Demo 3</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>example methods</h1>
+<hr>
+<div id="app">
+    {{num}}
+    <p><button @click="add">ADD</button></p>
+</div>
+<p><button onclick="reduce()">reduce</button></p>
+<p><button onclick="reduceOne()">reduceOne</button></p>
+<p><button onclick="off()">off</button></p>
+<script>
+    var app=new Vue({
+        el:"#app",
+        data:{
+            num:0
+        },
+        methods:{
+            add:function () {
+                this.num++
+            }
+        }
+    });
+    app.$on("reduce",function () {
+        console.log("执行了reduce方法")
+        this.num--;
+    })
+    app.$once("reduceOne",function () {
+        console.log("只执行了reduce方法一次")
+        this.num--;
+    })
+    var reduce=function () {
+        app.$emit("reduce");
+    }
+    var reduceOne=function () {
+        app.$emit("reduceOne");
+    }
+    var off=function () {
+        app.$off("reduce")
+    }
+</script>
+</body>
+</html>

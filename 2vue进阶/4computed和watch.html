@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>computed计算属性和watcher</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="a">
+        <!--根据输入框中的内容  算出一个错误信息-->
+        {{msg}}
+    </div>
+
+<script>
+    let vm1=new Vue({
+        el: "#app",
+        data: {
+           a:''
+        },
+        computed:{  //computed默认调用get方法,必须要有return,computed不支持异步
+          msg(){
+              if(this.a.length<3){
+                  return '少了'
+              }else if(this.a.length>6){
+                  return '多了'
+              }
+              return '';
+          }
+        },
+        methods:{
+
+        },
+        watch:{ //只有值变化的时候才会触发  支持异步,其他情况下我们更善于使用computed
+             a(newVal,oldVal){ //watch的属性名字要和观察的人的名字一致
+                 console.log(newVal);
+                 console.log(oldVal);
+             }
+        }
+    });
+    /*
+    * computed是计算"属性",不是方法
+    * 1、方法不会有缓存,computed会根据依赖(归vue管理的数据，可以响应式变化的)的属性进行缓存
+    * 2、两部分组成有get和set(不能只写set),一般情况下通过js赋值影响其他人或者表单元素设置值的时候会调用set方法
+    * 3、
+    *
+    * */
+</script>
+</body>
+</html>

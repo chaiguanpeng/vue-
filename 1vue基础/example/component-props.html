@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>component初识组件</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>component初识组件</h1>
+<hr>
+<div id="app">
+    <panda here="china"></panda>
+</div>
+<script>
+    var app=new Vue({
+        el:"#app",
+        components:{
+            panda:{
+                template:`<div style="color:green">panda from {{here}}</div>`,
+                props:['here']
+            }
+        }
+    })
+</script>
+</body>
+</html>

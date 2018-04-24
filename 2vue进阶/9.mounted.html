@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p ref="myp">{{flag}}</p>
+    <div ref="wrap">
+        <div v-for="a in arr" ref="mydiv">{{a}}</div>
+    </div>
+
+</div>
+<script>
+    //this.$data    vm上的数据
+    //this.watch    监控
+    //this.$el      当前el元素
+    //this.$set       后加的属性实现响应式变化
+    //this.$options   vm上的所有属性(一般用不到)
+    // this.$nextTick(()=>{ console.log(vm);})      //异步方法,等待渲染Dom完成后来获取vm,一般不用
+    //this.refs
+    let vm = new Vue({
+        a:1,
+        el:'#app',
+        data:{
+            flag:'hello',
+            arr:[1,2,3]
+        },
+        mounted(){
+            console.log(this.$options);
+
+
+
+            // vue为下面麻烦方法给了简单方法 ref
+            console.log(document.getElementsByTagName('p')[0].innerHTML);
+            // 简易写法     如果dom元素不是通过v-for循环出来的  只能获取到一个,通过v-for循环出来的可以获取多个
+            console.log(this.$refs.mydiv);
+
+            this.arr=[1,2,3,4,5,7];     //dom渲染是异步的
+            this.$nextTick(()=>{console.log(this.$refs.wrap);}) //如果数据变化后想获取真实Dom中的内容,需要等待页面页面完毕后在去获取，所有的dom操作 最好nextTick中
+
+
+
+        }
+    })
+</script>
+</body>
+</html>

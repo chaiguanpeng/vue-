@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>example methods Demo 3</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+<h1>example methods</h1>
+<hr>
+<div id="app">
+    <jspang>
+        <span slot="url">{{jspangDate.url}}</span>
+        <span slot="name">{{jspangDate.name}}</span>
+        <span slot="skill">{{jspangDate.skill}}</span>
+    </jspang>
+</div>
+<template id="tep">
+    <div>
+        <p>博客地址: <slot name="url"></slot> </p>
+        <p>网名: <slot name="name"></slot> </p>
+        <p>技术: <slot name="skill"></slot></p>
+    </div>
+</template>
+<script>
+    var jspang={
+        template:"#tep"
+    }
+    var app=new Vue({
+        el:"#app",
+        data:{
+            jspangDate:{
+                url:"www.baidu.com",
+                name:"jspang",
+                skill:"web前端",
+            }
+        },
+        components:{
+            "jspang":jspang,
+        }
+    });
+</script>
+</body>
+</html>

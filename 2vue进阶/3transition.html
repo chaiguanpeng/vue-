@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画</title>
+    <link rel="stylesheet" href="node_modules/animate.css/animate.css">
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <style>
+        #app>div{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="flag=!flag">切换</button>
+        <input type="text" v-model="query">
+        <!--vue自定义的标签   (组件)-->
+        <transition-group enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+            <div v-for="(a,index) in newArr" :key="index" v-show="flag">{{a}}</div>
+        </transition-group>
+
+    </div>
+    <script>
+       let vm= new Vue({
+           el:"#app",
+           computed:{
+               newArr(){
+                   return this.arr.filter(item => item == this.query);
+               }
+           },
+           data:{
+               flag:true,
+               arr:[1,2,3,4],
+               query:''
+           },
+           methods:{
+           }
+       })
+    </script>
+</body>
+</html>

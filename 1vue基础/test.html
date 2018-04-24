@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+请等待<span id="dd">10</span>秒
+<script type="text/javascript">
+    function run(){
+        var s = document.getElementById("dd");
+        if(s.innerHTML == 0){
+//            window.location.href='www.baidu.com';
+            return false;
+        }
+        s.innerHTML = s.innerHTML * 1 - 1;
+    }
+    window.setInterval("run();", 1000);
+</script>
+</body>
+</html>
