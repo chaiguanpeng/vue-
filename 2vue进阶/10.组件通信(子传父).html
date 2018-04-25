@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    父亲: {{money}}
+    <!--儿子绑定事件child-msg 父亲接收things事件-->
+    <child :m="money" @child-msg="things"></child>
+</div>
+<script>
+    /*
+    * 父亲绑定一些事件,儿子触发事件 将参数传递过去。  单向数据流 父数据刷新->儿子数据刷新
+    *
+    *
+    *
+    * */
+    let parent={
+        template:"<h1>hello world</h1>"
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            money:400
+        },
+        methods:{
+            things(val){
+                this.money=val;
+            }
+        },
+        components:{
+            child:{
+                props:['m'],
+                template:"<div>儿子: {{m}} <button @click='getMoney'>多要钱</button></div>",
+                methods:{
+                    getMoney(){
+                        this.$emit('child-msg',800) //触发自己的自定义事件,让父亲的方法执行
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

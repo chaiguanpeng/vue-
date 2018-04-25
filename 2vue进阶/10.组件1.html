@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--功能分类 页面级组件:1、一个页面是一个组件 2、将可复用的部分抽离出来 基础组件-->
+<!--用法分类:  1、全局组件:可以声明一次在任何地方使用（一般写插件的时候全局组件使用多一些） 2、局部组件:必须告诉这个组件属于谁-->
+    <div id="app">
+        <my-handsome></my-handsome>
+        <component1></component1>
+        <component2></component2>
+    </div>
+<script>
+    //1.组件名不要带有大写(首字母可以大写)  多个单词用-
+    //2.html采用短横线隔开命名法，js中转驼峰也是可以
+    Vue.component('myHandsome',{   //一个对象可以看成一个组件
+        template:"<div>{{msg}}</div>",
+        data(){
+            // 组件中的数据必须是函数类型,返回一个实例作为组件的数据
+            return{
+                msg:'我很英俊'
+            }
+        }
+    });
+    /*局部组件,组件是相互独立,不能直接跨作用域,拥有声明周期函数  实例vm也是一个组件
+     *子组件不能直接使用父组件的数据(组件间交互)
+     * 组件理论上可以无限嵌套
+    */
+    let component1={
+        template:'<div>我是局部组件1</div>'
+    };
+    let component2={
+        template:'<div>我是局部组件2</div>'
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            flag:'hello',
+            a:1
+        },
+        components:{
+            component1,
+            component2
+        }
+    })
+</script>
+</body>
+</html>

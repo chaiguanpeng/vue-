@@ -7,18 +7,18 @@
 </head>
 <body>
 <div id="app">
-  <p>{{flag}}</p>
+
 </div>
+<template id="aa">
+    <h1>hello</h1>
+</template>
 <script>
-    //this.$data    vm上的数据
     let vm = new Vue({
         el:'#app',
         data:{
             flag:'hello'
         },
-        mounted(){
-            console.log(document.getElementsByTagName('p')[0].innerHTML);
-        }
+        template:'#aa',
     })
 </script>
 </body>

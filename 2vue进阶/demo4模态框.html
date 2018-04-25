@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <style>
+        .mask{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ccc;
+        }
+        .dialog{
+            width: 400px;
+            height: 150px;
+            background: #fff;
+            position: absolute;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="flag=true">弹框</button>
+    <!--如果show的值是true则显示,如果false则隐藏,@close对应的函数是关闭按钮时触发的函数-->
+    <!--<model :show="false" @close="fn"></model>-->
+    <model :show="flag" @my-close="fn"></model>
+
+</div>
+<template id="dialog">
+    <div class="mask" v-show="show">
+        <div class="dialog">
+            <button @click="close">关闭</button>
+        </div>
+    </div>
+</template>
+<script>
+    let model={
+        props:['show'], //接收了父组件的属性
+        template:"#dialog",
+        methods:{
+            close(){
+                this.$emit('my-close')
+            }
+        }
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            flag:false
+        },
+        components:{
+            model
+        },
+        methods:{
+            fn(){
+                this.flag=false;
+            }
+        }
+    })
+</script>
+</body>
+</html>
