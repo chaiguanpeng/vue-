@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/article/1/a">商品1</router-link>
+        <router-link to="/article/2/b">商品2</router-link>
+        <router-view></router-view>
+    </div>
+    <script>
+        let article = {
+            template: '<div>第{{$route.params.c}}篇文章</div>'
+        };
+        /*
+         * 路径  /article/1/a
+         *      /article/:c/:a   会产生对象  {c:1,a:'a'} 会放在this.$route.params
+         */
+        let routes = [{ //路径参数 表示值必须要有,但是值是随机的
+            path: '/article/:c/:a',
+            component: article
+        }];
+        let router = new VueRouter({
+            routes
+        });
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                flag: 'hello'
+            },
+            router
+        });
+    </script>
+</body>
+
+</html>

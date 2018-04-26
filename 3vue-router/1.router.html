@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        .active {
+            color: red
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--router-view是一个全局组件,可以直接使用-->
+        <router-link to="/home" tag="button">首页</router-link>
+        <router-link to="/list" tag="button">列表页</router-link>
+        <router-view></router-view>
+    </div>
+    <script>
+        let home = {
+            template: '<div>首页</div>'
+        };
+        let list = {
+            template: '<div>列表页</div>'
+        };
+        let routes = [ //路由的映射表 配置路径和组件的关系
+            {
+                path: '/home', //路径必须加/
+                component: home //配置的关系就是页面级组件
+            }, {
+                path: '/list',
+                component: list
+            }
+        ];
+        let router = new VueRouter({ //引入vue-router自带VueRouter类
+            // mode: 'history', // h5模式(一般不用这种模式)
+            routes,
+            linkActiveClass: 'active' //更改默认样式的类名 默认叫router
+
+        });
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                flag: 'hello'
+            },
+            router
+        });
+    </script>
+</body>
+
+</html>

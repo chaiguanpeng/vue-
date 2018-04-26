@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/animate.css/animate.css">
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        .active {
+            color: red
+        }
+        
+        #app div {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/home">首页</router-link>
+        <router-link to="/list">列表页</router-link>
+        <!-- 动画中的模式, mode="in-out" -->
+        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <!-- 要缓存谁 就把谁包起来即可 keep-alive标签-->
+            <keep-alive>
+                <router-view style="position: absolute;top:40px;left:0;width: 100%;"></router-view>
+            </keep-alive>
+        </transition>
+
+    </div>
+    <script>
+        let home = {
+            template: '<div>首页</div>'
+        };
+        let list = {
+            template: '<div>列表页</div>'
+        };
+        let routes = [{
+            path: '/home',
+            component: home
+        }, {
+            path: '/list',
+            component: list
+        }];
+        let router = new VueRouter({
+            routes,
+            linkActiveClass: 'active'
+
+        });
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                flag: 'hello'
+            },
+            router
+        });
+    </script>
+</body>
+
+</html>
