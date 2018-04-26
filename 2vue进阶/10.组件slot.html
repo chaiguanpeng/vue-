@@ -2,9 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>slot插槽</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
 </head>
 <body>
+<div id="app">
+    <!--这里放的内容均属于父级当前模板,只有属性名是属于组件的(比如m)-->
+    <modal m="1">
+        <a href="#">去珠峰</a>
+        <p slot="content">亲，确认删除嘛</p>
+        <h1 slot="title" @click="fn">是否删除?</h1>
+        <a href="#">去珠峰</a>
+    </modal>
+</div>
+<!--slot作用:定制模板-->
+<!--模板中只能有一个根元素-->
+<!--slot中可以放置一些默认内容,如果传递了内容则替换掉-->
+<!--如果没有名字的标签默认会放置到default中-->
+<template id="modal">
+   <div>
+        <slot name="title" @click="fn">默认标题</slot>
+        <slot name="content">默认内容</slot>
+        <slot name="default">这是默认标题</slot>
+   </div>
+</template>
+<script>
+    let modal={
+        template:'#modal'
 
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            flag:'hello'
+        },
+        components:{
+            modal
+        },
+        methods:{
+            fn(){
+                alert('1')
+            }
+        }
+    })
+</script>
 </body>
 </html>

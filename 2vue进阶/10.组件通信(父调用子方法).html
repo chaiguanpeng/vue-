@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <loading ref="load"></loading>
+</div>
+<script>
+    // 组件使用三部曲 1、创建 2、注册 3、调用
+    // 父调用子组件的方法
+    let loading={
+        template:'<div v-show="flag">疯狂加载中...</div>',
+        data(){
+          return {
+              flag:true,
+              a:1
+          }
+        },
+        methods:{
+            hide(){
+                this.flag=false;
+            }
+        }
+
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+        },
+       components:{
+           loading
+       },
+        mounted(){
+           //ref 如果放在组件上 获取的是组件的实例 并不是组件的dom元素
+            this.$refs.load.$el.style.background='red';  //页面加载完成背景变红
+            setInterval(()=>{                           //页面加载完成 父亲调用子组件的hide方法
+                this.$refs.load.hide();
+            },3000)
+        }
+    })
+</script>
+</body>
+</html>

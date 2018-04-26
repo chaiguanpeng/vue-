@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div id="app">
+    <panel :type="article.type" @say-title="parent" v-for="(article,index) in articles" :key="index">
+        <div slot="title" v-html="article.title"></div>
+        <div slot="content">内容区
+           {{article.content}}
+        </div>
+        <div v-if="article.auth">{{article.auth}}</div>
+    </panel>
+</div>
+<template id="panel">
+    <div class="panel" :class="[color]">
+        <div class="panel-heading"  ref="head"><slot name="title"></slot></div>
+        <div class="panel-body"><slot name="content"></slot></div>
+        <div class="panel-footer">
+            <slot><p>匿名</p></slot>
+            <button @click="say">点我说标题</button>
+        </div>
+    </div>
+</template>
+<script>
+    let panel={
+
+        template:'#panel',
+        props:{
+            type:{    //相当于this.type='default'   子组件不能更改父组件传递的
+                type:String,
+                default:'default',
+            }
+        },
+        computed:{
+            color(){
+                return 'panel-' + this.type
+            }
+        },
+        methods:{
+            say(){
+                this.$emit('say-title',this.$refs.head.innerText)
+            }
+        }
+
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            flag:'hello',
+            articles:[
+                {type:'warning',title:'<h2>vue</h2>',content:'这是vue文章',auth:'zfpx'},
+                {type:'primary',title:'<h2>react</h2>',content:'这是react文章'},
+                {type:'danger',title:'<h2>ng</h2>',content:'这是ng文章'}
+            ]
+        },
+        components:{
+            panel
+        },
+        methods:{
+            parent(tit){
+                alert(tit);
+            }
+        }
+    })
+</script>
+</body>
+</html>

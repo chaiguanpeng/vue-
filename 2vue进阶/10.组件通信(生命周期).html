@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child ref="child"></child>
+</div>
+<template id="child">
+    <div>
+        <ul>
+            <li v-for="item in arr">{{item}}</li>
+        </ul>
+    </div>
+</template>
+<script>
+    // 子组件和父组件同时拥有mouted方法,会先走谁？ 先走子组件中的mouted方法
+    // 需要等待子组件挂载完成后再触发父组件的挂载
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            flag:'hello'
+        },
+        mounted(){
+            this.$nextTick(()=>{    //想操作dom加 nextTick
+                console.log(this.$refs.child.$el.innerHTML);
+            })
+
+        },
+       components:{
+            child:{
+                data(){
+                    return {
+                       arr:[1,2,3]
+                    }
+                },
+                mounted(){
+                    this.arr=[4,5,6]    //此处是异步渲染dom
+                },
+                template:'#child'
+            }
+       }
+    })
+</script>
+</body>
+</html>

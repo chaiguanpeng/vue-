@@ -9,17 +9,22 @@
 <div id="app">
 
 </div>
-<template id="aa">
-    <h1>hello</h1>
-</template>
 <script>
     let vm = new Vue({
         el:'#app',
         data:{
             flag:'hello'
         },
-        template:'#aa',
-    })
+        mounted(){
+            // console.log(this.$refs);
+            // console.log(this.$refs.he);
+        }
+    });
+    function add(num1, num2) {
+        arguments[1]=10;
+        console.log(arguments[0] + num2);
+    }
+    add(8);
 </script>
 </body>
 </html>

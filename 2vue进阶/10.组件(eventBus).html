@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <brother1></brother1>
+    <brother2></brother2>
+</div>
+<script>
+    let EventBus = new Vue;
+    let brother1={
+        template:'<div>{{color}} <button>变绿</button></div>',
+        data(){
+            return{
+                color:'绿色',
+                old:'绿色'
+            }
+        },
+        created(){
+            EventBus.$on('changeRed',(val)=>{   //页面一加载兄弟1 长耳朵监听
+                this.color=val
+            })
+        }
+    };
+    let brother2={
+        template:'<div>{{color}} <button @click="change">变红</button></div>',
+        data(){
+            return{
+                color:'红色',
+                old:'红色'
+            }
+        },
+        methods:{
+            change(){
+                EventBus.$emit('changeRed',this.old)
+            }
+        }
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            flag:'hello'
+        },
+        mounted(){
+        },
+        components:{
+            brother1,
+            brother2
+        }
+    });
+</script>
+</body>
+</html>
