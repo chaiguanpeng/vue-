@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>checkBox</title>
     <style>
-        ul li{
+        ul li {
             margin-bottom: 20px;
         }
     </style>
     <script src="node_modules/vue/dist/vue.js"></script>
 </head>
+
 <body>
     <div id="app">
         <!--如果是复选框 只有一个复选框,会把此值转化成boolean类型,如果true则代表选中-->
@@ -17,9 +19,8 @@
         <hr>
         <!--如果是多个checkbox 要增加value属性并且数据类型是数组-->
         爱好:<input type="checkbox" v-model="b" value="游泳"> 游泳
-            <input type="checkbox" v-model="b" value="爬山"> 爬山
-            <input type="checkbox" v-model="b" value="睡觉"> 睡觉
-        {{b}}
+        <input type="checkbox" v-model="b" value="爬山"> 爬山
+        <input type="checkbox" v-model="b" value="睡觉"> 睡觉 {{b}}
         <hr>
         <!--如果value属性不写默认取的是option中的值,请选择这一项要加disabled-->
         <!--如果select是多选框，则数据类型要是数组类型-->
@@ -28,26 +29,25 @@
             <option value="1">你好</option>
             <option value="2">不好</option>
             <option value="3">我好</option>
-        </select>
-        {{val}}
+        </select> {{val}}
         <hr>
         <input type="radio" v-model="sex" value="男" name="gender">男
-        <input type="radio" v-model="sex" value="女" name="gender">女
-        {{sex}}
+        <input type="radio" v-model="sex" value="女" name="gender">女 {{sex}}
     </div>
     <script>
-        let vm=new Vue({
-            el:'#app',
-            data:{
-                a:1,
-                b:[],
-                val:'',
-                sex:'男'
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                a: 1,
+                b: [],
+                val: '',
+                sex: '男'
             },
-            methods:{
+            methods: {
 
             }
         });
     </script>
 </body>
+
 </html>
