@@ -1,2 +1,2 @@
-let str = "我很帅";
-export str;
+let str = '我很帅';
+module.exports = str;

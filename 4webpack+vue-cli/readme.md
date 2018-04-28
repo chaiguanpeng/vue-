@@ -12,5 +12,27 @@
     npm install webpack --sav-dev
 ```
 > 安装webpack或者less最好不要安装全局，否则可能导致webpack的版本差异
-- 在package.json中配置一个脚本,这个脚本用的命令是webpack.会去当前的node_modules下找bin对应的webpack名字让其执行,执行的就是webpack/bin/webpack.js，需要在当前目录下有个名字叫webpack.config.js的文件
-。我们通过npm run dev执行的目录是当前文件目录,所以会去当前目录下查找
+- 在package.json中配置一个脚本,这个脚本用的命令是webpack.会去当前的node_modules下找bin对应的webpack名字让其执行,执行的就是webpack/bin/webpack.js，需要在当前目录下有个名字叫webpack.config.js的文件。我们通过npm run dev执行的目录是当前文件目录,所以会去当前目录下查找
+## babel转义 es6 ->es5
+- 安装babel
+```
+    npm install babel-core --save-dev
+    npm install babel-loader --save-dev
+```
+## babel-preset-es2015
+- 让翻译官拥有解析es6语法的功能
+```
+    npm install babel-preset-es2015  --save-dev
+```
+## babel-preset-stage-0
+- 解析es7语法
+```
+    npm install babel-preset-stage-0  --save-dev
+```
+
+## 解析样式
+- css-loader将css解析成模块,将解析的内容插入到style标签内(style-loader)
+```
+npm install css-loader style-loader --save-dev
+```
+## css

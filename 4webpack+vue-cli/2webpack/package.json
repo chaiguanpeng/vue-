@@ -1,15 +1,24 @@
 {
-    "name": "2webpack",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "build": "webpack"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "webpack": "^3.8.1"
-    }
+  "name": "week2-day3",
+  "version": "1.0.0",
+  "description": "- 下载一个全局生成vue项目的脚手架\r ```\r npm install vue-cli -g\r vue init webpack <项目名字>\r cd 项目名字\r npm install\r npm run dev\r ```",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "style-loader": "^0.21.0",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
 }
