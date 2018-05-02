@@ -9,3 +9,4 @@ let newObj = {...obj, ...obj1 }; //es7语法
 console.log(newObj)
 
 import "./index.css"; //引入css
+import "./style.less"; //引入less

@@ -36,3 +36,4 @@
 npm install css-loader style-loader --save-dev
 ```
 ## css
+- cd ls install -g --save-dev 将

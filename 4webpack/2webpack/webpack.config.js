@@ -13,7 +13,12 @@ module.exports = {
         rules: [
             { test: /\.js$/, use: "babel-loader", exclude: /node_modules/ },
             //use时从右往左写
-            { test: /\.css$/, use: ['style-loader', 'css-loader'], exclude: /node_modules/ }
+            { test: /\.css$/, use: ['style-loader', 'css-loader'], exclude: /node_modules/ },
+            //配置less     
+            { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'], exclude: /node_modules/ },
+            //解析图片
+            { test: /\.(jpg|png|gif)$/, use: ["url-loader"], exclude: /node_modules/ }
+
         ]
     }
 };
