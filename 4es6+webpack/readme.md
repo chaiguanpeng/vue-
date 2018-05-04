@@ -35,5 +35,24 @@
 ```
 npm install css-loader style-loader --save-dev
 ```
-## css
-- cd ls install -g --save-dev 将
+## less,sass,stylus(预处理语言)
+- less-loader less
+- sass-loader 
+- stylus-loader 
+```
+npm install less less-loader  --save-dev
+```
+## 解析图片
+- file-loader url-loader(是依赖与file-loader)
+```
+npm install file-loader url-loader --save-dev
+```
+
+
+## 需要解析html插件
+- 插件的作用是以我们自己的html为模板将打包后的结果自动引入到html中,产出到dist目录下
+```
+npm install html-webpack-plugin --save-dev
+```
+## webpack-dev-server
+- 这里面内置了服务,可以帮我们启动一个端口号,当代码更新时可以自动打包(内存中打包,不产生实体文件),代码有变化就重新执行
