@@ -45,7 +45,12 @@
             flex:1;
             align-items: center;
             justify-content: center;
+            color: yellowgreen;
         }
+        a.router-link-active{
+            color: red;
+        }
+        // router-link-exact-active router-link-active
     }
  
 </style>

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Tab from "./base/tab.vue";
+import Tab from "./base/Tab.vue";
 export default {
   name: 'App',
   components:{
@@ -27,5 +27,12 @@ export default {
   }
   input,button{
     -webkit-appearance: none
+  }
+  .content{
+    position: fixed;
+    width: 100%;
+    top: 40px;
+    bottom: 50px;
+    overflow: auto;
   }
 </style>

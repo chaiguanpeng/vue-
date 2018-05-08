@@ -4,12 +4,21 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+
+
 Vue.config.productionTip = false
+
+
+// 导入并使用swiper插件
+import VueAwesomeSwiper from 'vue-awesome-swiper';
+import 'swiper/dist/css/swiper.css';
+Vue.use(VueAwesomeSwiper);
+
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })
