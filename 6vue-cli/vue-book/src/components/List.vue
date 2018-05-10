@@ -3,28 +3,33 @@
     <MHeader>列表页</MHeader>
     <div class="content">
       <ul>
-        <li v-for="book in books">
+        <router-link v-for="(book,index) in books" :to="{name:'detail',params:{bid:book.bookId}}" :key="index" tag="li">
           <img :src="book.bookCover" alt="">
           <div>
             <h4>{{book.bookName}}</h4>
             <p>{{book.bookInfo}}</p>
             <b>{{book.bookPrice}}</b>
-            <button @click="remove(book.bookId)">删除</button>
+            <button @click.stop="remove(book.bookId)">删除</button>
           </div>
-        </li>
+        </router-link>
       </ul>
+      <div @click="more" class="more">加载更多</div>
     </div>
   </div>
 </template>
 
 <script>
-  import {getBooks,removeBook} from '../api';
+  import {pagination,removeBook} from '../api';
   import MHeader from "../base/MHeader.vue";
 
 export default {
   data () {
     return {
-      books:[]
+      //offset代表的是偏移量 hasMore代表是否有更多
+      books:[],
+      offset:0,
+      hasMore:true,
+      isLoading:false
     };
   },
   created(){
@@ -39,8 +44,19 @@ export default {
 
 
   methods: {
+    more(){
+      this.getData();
+    },
     async getData(){
-      this.books = await getBooks();
+      if(this.hasMore && !this.isLoading){ //有更多的时候获取数据
+        this.isLoading = true;
+        let {hasMore,books} = await pagination(this.offset);
+        this.books = [...this.books,...books];   //获取的书放到books属性上
+        this.hasMore = hasMore;
+        this.offset = this.books.length;
+        this.isLoading = false; //加载完毕
+      }
+
     },
     async remove(id){   //删除某一项
       await removeBook(id);
@@ -86,5 +102,13 @@ export default {
     border: none;
     border-radius: 8px;
     outline: none;
+  }
+  .more{
+    margin: 10px;
+    background: #2ffedd;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 20px;
   }
 </style>

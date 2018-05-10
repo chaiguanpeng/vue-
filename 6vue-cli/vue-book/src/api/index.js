@@ -18,8 +18,34 @@ export let getHotBook = () => {
 // 获取全部图书
 export let getBooks=()=>{
   return axios.get('/book');
-}
+};
 // 删除某一本图书
 export let removeBook = (id)=>{
       return axios.delete(`/book?id=${id}`);
-}
+};
+
+//获取某一本书
+export let findOneBook = (id)=>{
+  return axios.get(`/book?id=${id}`);
+};
+
+// 修改图书
+export let updateBook = (id,data)=>{
+  return axios.put(`/book?id=${id}`,data)
+};
+
+export let addBook = (data)=>{
+  return axios.post('/book',data);
+};
+
+//首页中实现loading效果  得到书和图片接口
+export let getAll = ()=>{
+  return axios.all([getSliders(),getHotBook()]);
+};
+
+// 根据偏移量  返回对应的数据 5  =>5-10
+export let pagination = (offset)=>{
+  return axios.get(`/page?offset=${offset}`);
+};
+
+

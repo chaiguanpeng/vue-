@@ -3,7 +3,7 @@ let fs = require('fs');
 let url = require('url');
 // 获取轮播图   /sliders
 let sliders = require('./sliders.js');
-
+let pageSize = 5; //每页显示5个
 function read(cb) {
   // readFile异步的
     fs.readFile('./book.json', 'utf8', function(err, data) {
@@ -25,12 +25,32 @@ http.createServer((req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
     res.setHeader("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-    res.setHeader("X-Powered-By", ' 3.2.1')
+    res.setHeader("X-Powered-By", ' 3.2.1');
     if (req.method == "OPTIONS") return res.end(); /*让options请求快速返回*/
 
     let { pathname, query } = url.parse(req.url,true); //true把query转化成对象
-  // console.log(pathname);
-  // console.log(query);
+
+    if(pathname === '/page'){
+      let offset = parseInt(query.offset) || 0; //拿到当前前端传递的值
+      read(function (books) {
+        // 每次偏移量  在偏移的基础上增加五条
+        let result= books.reverse().slice(offset,offset+pageSize);  //数据倒序
+        let hasMore = true; //默认有更多
+        if(books.length<=offset+pageSize){  //已经显示的数目 大于了总共条数
+            hasMore = false;
+        }
+        res.setHeader('Content-Type', 'application/json;charset=utf8');
+        // setTimeout(function () { //测试无网情况,点击加载更多重复发请求
+          res.end(JSON.stringify({hasMore,books:result}))
+        // },8000)
+
+      });
+      console.log(offset);
+      return;
+    }
+
+
+
     if (pathname === '/sliders') {
         res.setHeader('Content-Type', 'application/json;charset=utf8');
         return res.end(JSON.stringify(sliders));
@@ -40,7 +60,10 @@ http.createServer((req, res) => {
         read(function (books) {
             let hot=books.reverse().slice(0,6);
             res.setHeader('Content-Type', 'application/json;charset=utf8');
-            res.end(JSON.stringify(hot));
+            setTimeout(()=>{
+              res.end(JSON.stringify(hot))
+            },500)
+
 
         });
         return
@@ -49,8 +72,13 @@ http.createServer((req, res) => {
       let id=parseInt(query.id);  //取出的是字符串
         switch (req.method){ //?id=1
           case "GET":
-            if(id){ //查询一个
-
+            if(!isNaN(id)){ //查询一个
+              read(function (books) {
+                let book = books.find(item =>item.bookId===id);
+                if(!book) book = {}; //如果没找到则是undefined
+                res.setHeader('Content-Type', 'application/json;charset=utf8');
+                res.end(JSON.stringify(book));
+              });
             }else { //获取所有图书
               read(function (books) {
                 res.setHeader('Content-Type', 'application/json;charset=utf8');
@@ -59,8 +87,42 @@ http.createServer((req, res) => {
             }
             break;
           case "POST":
+            let str = "";
+            req.on('data',chunk=>{
+              str+=chunk;
+            });
+            req.on('end',()=>{
+              let book = JSON.parse(str); //book要改成什么样子
+              read(function (books) { //添加id
+                book.bookId = books.length?books[books.length-1].bookId+1:1;
+                books.push(book);  //将数据放到books中,books在内存中
+                write(books,function () {
+                    res.end(JSON.stringify(book));
+                })
+              })
+            })
             break;
           case "PUT":
+            if(id){ //获取了当前要修改的id
+              let str = "";
+              req.on('data',chunk=>{
+                str+=chunk;
+              });
+              req.on('end',()=>{
+                let book = JSON.parse(str); //book要改成什么样子
+                read(function (books) {
+                  books = books.map(item=>{
+                    if(item.bookId === id){ //找到id相同的那一本书
+                      return book;
+                    }
+                    return item;   //其他书正常返回即可
+                  });
+                  write(books,function () { //将数据写会json中
+                    res.end(JSON.stringify(book));
+                  })
+                })
+              })
+            }
             break;
           case "DELETE":
             console.log(id);

@@ -1,6 +1,15 @@
 <template>
   <div id="app">
-     <router-view></router-view>
+    <transition name="fadeIn">
+      <!--需要缓存的-->
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+    </transition>
+    <!--正常的访问走下面-->
+    <transition name="fadeIn">
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
+    </transition>
      <Tab></Tab>
   </div>
 </template>
@@ -34,5 +43,15 @@ export default {
     top: 40px;
     bottom: 50px;
     overflow: auto;
+  }
+  .fadeIn-enter{
+    opacity: 0;
+  }
+  .fadeIn-enter-active{
+    transition: all .3s linear;
+  }
+  .fadeIn-leave-active{
+    transition: all 0.3s linear;
+    opacity: 0;
   }
 </style>

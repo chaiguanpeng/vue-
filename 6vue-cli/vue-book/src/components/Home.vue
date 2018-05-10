@@ -2,7 +2,9 @@
   <div>
     <MHeader>首页</MHeader>
     <div class="content">
-       <Swiper :swiperSlides="sliders"></Swiper>
+      <Loading v-if="loading">疯狂加载中</Loading>
+      <template v-else>
+        <Swiper :swiperSlides="sliders"></Swiper>
         <div class="container">
           <h3>热门图书</h3>
           <ul>
@@ -12,6 +14,7 @@
             </li>
           </ul>
         </div>
+      </template>
     </div>
   </div>
 </template>
@@ -23,33 +26,38 @@
 // 1.引入组件 2.注册组件 3.使用组件
 import MHeader from "../base/MHeader.vue";
 import Swiper from "../base/Swiper.vue";
+import {getAll} from "../api";
+import Loading from "../base/Loading.vue";
 
-// 请求端口3000
-import { getSliders,getHotBook } from '../api';
 
 export default {
    created () {
-     this.getSlider(); //获取轮播图
-     this.getHot();     //获取图书
+     this.getData();
+
+
    },
   data () {
     return {
       sliders:[],
-      hotBooks:[]
+      hotBooks:[],
+      loading:true
     };
   },
 
   components: {
     MHeader,
-    Swiper
+    Swiper,
+    Loading
   },
   computed: {},
   methods: {
-    async getHot(){
-      this.hotBooks=await getHotBook();
-    },
-    async getSlider(){
-      this.sliders=await getSliders();
+
+   async getData(){
+     let [sliders,hotBooks]= await getAll();
+     this.sliders=sliders;
+     this.hotBooks=hotBooks;
+     //轮播图和热门图书已完成
+      this.loading=false;
     }
 
   }
