@@ -1,10 +1,14 @@
 <template>
-    <div>hello</div>
+    <div>
+      <Counter></Counter>
+    </div>
 </template>
 
 <script>
+  import Counter from './components/Counter.vue';
     export default {
-        name: "app"
+        name: "app",
+      components:{Counter}
     }
 </script>
 

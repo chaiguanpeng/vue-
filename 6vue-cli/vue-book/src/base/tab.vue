@@ -10,7 +10,7 @@
      </router-link>
      <router-link to="/collect">
         <i class="iconfont icon-collect-active"></i>
-        <span> 收藏</span>
+        <span> 购物车</span>
     </router-link>
      <router-link to="/add">
         <i class="iconfont icon-add"></i>
@@ -52,5 +52,5 @@
         }
         // router-link-exact-active router-link-active
     }
- 
+
 </style>

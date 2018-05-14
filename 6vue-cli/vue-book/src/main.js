@@ -32,9 +32,11 @@ Vue.use(VueLazyload, {
   attempt: 1
 })
 /* eslint-disable no-new */
+import store from './store';
 new Vue({
     el: '#app',
     router,
     components: { App },
-    template: '<App/>'
+    template: '<App/>',
+    store
 })
