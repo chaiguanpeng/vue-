@@ -22,4 +22,5 @@ npm install less less-loader axios vuex bootstrap
 - /page?offset=5
 - 后台返回还要告诉前端是否有更多数据
 
+## coding split 代码分割
 
